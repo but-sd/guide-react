@@ -1,0 +1,42 @@
+site_name: memo react
+repo_name: alex1dre-girard/memo-react
+
+nav:
+  - Home: index.md
+  - JSX: syntaxe-jsx.md
+  - useState: use-state.md
+
+theme:
+  name: material
+  language: fr
+  features:
+    # Permet d'afficher le menu de navigation sous forme d'onglets
+    - navigation.tabs
+    # Permet de garder le menu de navigation visible en permanence
+    - navigation.tabs.sticky
+    # Permet d'afficher la table des matières
+    - toc.integrate
+    # Permet d'afficher le bouton pour copier le code
+    - content.code.copy
+    # Permet d'afficher un bouton "Retour en haut de la page"
+    - navigation.top
+  plugins:
+    - search:
+        lang: fr
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          # format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
