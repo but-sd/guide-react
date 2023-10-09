@@ -5,6 +5,7 @@ nav:
   - Home: index.md
   - JSX: syntaxe-jsx.md
   - useState: use-state.md
+  - react-router: react-router.md
 
 theme:
   name: material
