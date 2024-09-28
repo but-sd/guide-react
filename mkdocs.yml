@@ -2,10 +2,10 @@ site_name: memo react
 repo_name: alex1dre-girard/memo-react
 
 nav:
-  - Home: index.md
-  - JSX: syntaxe-jsx.md
-  - useState: use-state.md
-  - react-router: react-router.md
+  # - Home: index.md
+  - JSX: index.md
+  # - useState: use-state.md
+  # - react-router: react-router.md
 
 theme:
   name: material
