@@ -27,7 +27,7 @@ export default function App() {
 }
 ```
 
-On va ensuite définir les routes de notre application dans un fichier `routes.js` :
+On va ensuite définir les routes de notre application dans un fichier `routes.jsx` :
 
 ```javascript
 const routes = [
@@ -48,7 +48,7 @@ const routes = [
 export default routes;
 ```
 
-Notre application est maintenant capable de gérer les routes `/`, `/blog` et `/contact`. On peut tester le fonctionnement depuis le navigateur.
+Notre application est maintenant capable de gérer les routes `/`, `/blog` et `/contact`. On peut tester le fonctionnement depuis le navigateur. On constate aussi que l'accès à une route inconnue affiche une page d'erreur.
 
 ## Navigation
 
@@ -105,6 +105,7 @@ const routes = [
         element: <div>
             Home
             <nav>
+                <NavLink to="/">Home</NavLink>
                 <NavLink to="/blog">Blog</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
             </nav>
@@ -115,6 +116,7 @@ const routes = [
         element: <div>
             Blog
             <nav>
+                <NavLink to="/">Home</NavLink>
                 <NavLink to="/blog">Blog</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
             </nav>
@@ -125,6 +127,7 @@ const routes = [
         element: <div>
             Contact
             <nav>
+                <NavLink to="/">Home</NavLink>
                 <NavLink to="/blog">Blog</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
             </nav>
@@ -140,14 +143,18 @@ export default routes;
 On peut définir des routes paramétrées. Par exemple, si on veut afficher un article de blog, on va définir une route `/blog/:id` qui correspond à un composant `BlogPost` :
 
 ```javascript
+import { NavLink } from "react-router-dom";
+import BlogPost from "./components/BlogPost";
+
 const routes = [
     {
         path: "/",
         element: <div>
             Home
             <nav>
-                <Link to="/blog">Blog</Link>
-                <Link to="/contact">Contact</Link>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/blog">Blog</NavLink>
+                <NavLink to="/contact">Contact</NavLink>
             </nav>
         </div>,
     },
@@ -156,8 +163,9 @@ const routes = [
         element: <div>
             Blog
             <nav>
-                <Link to="/blog">Blog</Link>
-                <Link to="/contact">Contact</Link>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/blog">Blog</NavLink>
+                <NavLink to="/contact">Contact</NavLink>
             </nav>
         </div>,
     },
@@ -170,8 +178,9 @@ const routes = [
         element: <div>
             Contact
             <nav>
-                <Link to="/blog">Blog</Link>
-                <Link to="/contact">Contact</Link>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/blog">Blog</NavLink>
+                <NavLink to="/contact">Contact</NavLink>
             </nav>
         </div>,
     }
@@ -203,37 +212,37 @@ La route imbriquée permet de définir des comportements communs à plusieurs ro
 Le composant `Outlet` permet ensuite d'inclure les routes imbriquées dans notre application.
 
 ```javascript
-import { Outlet } from "react-router";
-import { Link } from "react-router-dom";
+import { NavLink, Outlet} from "react-router-dom";
+import BlogPost from "./components/BlogPost";
 
-const routes =  [
+const routes = [
     {
         path: "/",
         element: <Root />,
         children: [
             {
                 path: "blog",
-                element: <div>
-                    Blog
-                </div>,
+                element: <div>Blog</div>,
+            },
+            {
+                path: "blog/:id",
+                element: <BlogPost />,
             },
             {
                 path: "contact",
-                element: <div>
-                    Contact
-                </div>,
+                element: <div>Contact</div>,
             }
         ]
     }
-]
+];
 
 function Root() {
     return (
         <>
             <header>
                 <nav>
-                    <Link to="/blog">Blog</Link>
-                    <Link to="/contact">Contact</Link>
+                    <NavLink to="/blog">Blog</NavLink>
+                    <NavLink to="/contact">Contact</NavLink>
                 </nav>
             </header>
             <div className="content">
@@ -255,30 +264,52 @@ Afin de gérer les routes non trouvées, on va définir une route `*`. Selon que
 
 ```javascript
 
-const routes =  [
+import { NavLink, Outlet} from "react-router-dom";
+import BlogPost from "./components/BlogPost";
+
+const routes = [
     {
         path: "/",
         element: <Root />,
         children: [
             {
                 path: "blog",
-                element: <div>
-                    Blog
-                </div>,
+                element: <div>Blog</div>,
+            },
+            {
+                path: "blog/:id",
+                element: <BlogPost />,
             },
             {
                 path: "contact",
-                element: <div>
-                    Contact
-                </div>,
+                element: <div>Contact</div>,
             },
             {
                 path: "*",
                 element: <div>Not Found</div>,
             }
         ]
-    },
-]
+    }
+];
+
+function Root() {
+    return (
+        <>
+            <header>
+                <nav>
+                    <NavLink to="/blog">Blog</NavLink>
+                    <NavLink to="/contact">Contact</NavLink>
+                </nav>
+            </header>
+            <div className="content">
+                <Outlet />
+            </div>
+            <footer>
+                Footer
+            </footer>
+        </>
+    );
+}
 
 export default routes;
 ```
@@ -290,13 +321,11 @@ Si on positionne la route `*` au même niveau que les autres routes, elle va s'a
 La propriété `loader` permet d'executer une action avant d'afficher le composant. Par exemple, si on veut charger des données avant d'afficher le composant, on va utiliser cette propriété.
 
 ```javascript
-import { Outlet } from "react-router";
-import { NavLink } from "react-router-dom";
-import BlogPost from "./components/blog-post";
-import Blog from "./components/blog";
+import { NavLink, Outlet} from "react-router-dom";
+import BlogPost from "./components/BlogPost";
+import Blog from "./components/Blog";
 
-
-const routes =  [
+const routes = [
     {
         path: "/",
         element: <Root />,
@@ -312,17 +341,15 @@ const routes =  [
             },
             {
                 path: "contact",
-                element: <div>
-                    Contact
-                </div>,
+                element: <div>Contact</div>,
+            },
+            {
+                path: "*",
+                element: <div>Not Found</div>,
             }
-        ],
-    },
-    {
-        path: "*",
-        element: <div>Not Found</div>,
+        ]
     }
-]
+];
 
 function Root() {
     return (
@@ -333,9 +360,7 @@ function Root() {
                     <NavLink to="/contact">Contact</NavLink>
                 </nav>
             </header>
-            <div className="content">
-                <Outlet />
-            </div>
+            <Outlet />
             <footer>
                 Footer
             </footer>
@@ -360,7 +385,6 @@ export default function Blog() {
             <ul>
                 {posts.map(post => (
                     <li key={post.id}>
-                        {/* <a href={`/blog/${post.id}`}>{post.title}</a> */}
                         <NavLink to={`/blog/${post.id}`}>{post.title}</NavLink>
                     </li>
                 ))}
@@ -438,14 +462,11 @@ L'inconvénient de la méthode précédente est que le composant `Blog` n'est af
 On peut utiliser la méthode `defer` pour afficher le composant `Blog` avant le chargement des données. 
 
 ```javascript
-import { Outlet, defer, useNavigation } from "react-router";
-import { NavLink } from "react-router-dom";
-import BlogPost from "./components/blog-post";
-import Blog from "./components/blog";
-import BlogLazy from "./components/blog-lazy-loading";
+import { defer, NavLink, Outlet, useNavigation} from "react-router-dom";
+import BlogPost from "./components/BlogPost";
+import BlogLazy from "./components/BlogLazy";
 
-
-const routes =  [
+const routes = [
     {
         path: "/",
         element: <Root />,
@@ -467,17 +488,15 @@ const routes =  [
             },
             {
                 path: "contact",
-                element: <div>
-                    Contact
-                </div>,
+                element: <div>Contact</div>,
+            },
+            {
+                path: "*",
+                element: <div>Not Found</div>,
             }
-        ],
-    },
-    {
-        path: "*",
-        element: <div>Not Found</div>,
+        ]
     }
-]
+];
 
 function Root() {
     const {state} = useNavigation();
