@@ -1,12 +1,10 @@
 # JSX
 
-JSX est une extension de JavaScript qui permet de créer des composants React de manière plus simple et plus lisible.
+**J**ava**S**cript e**X**tension est une extension de JavaScript qui permet de créer des composants React de manière plus simple et plus lisible.
 
 Elle permet de créer des composants React en utilisant une syntaxe proche du HTML et d'utiliser des expressions JavaScript dans le code HTML.
 
 Dans une syntaxe javascript classique, il faut utiliser la fonction React.createElement pour créer un composant React. Cette fonction prend en paramètre le nom du composant React, les attributs du composant React et les enfants du composant React.
-
-C'est cette syntaxe qui est utilisée pour instancier le composant React  racine dans le fichier index.js.
 
 Voici un exemple de code React avec la syntaxe javascript classique :
 
@@ -32,7 +30,7 @@ function App() {
 export default App;
 ```
 
-JSX permet d'avoir un code plus lisible et plus simple à écrire.
+JSX permet d'avoir un code plus lisible et plus simple à écrire. Elle mélange la logique JavaScript et la structure HTML.
 
 ## Syntaxe
 
@@ -326,7 +324,7 @@ Un composant React peut être utilisé dans un autre composant React en utilisan
 
 Le composant peut être utilisé plusieurs fois dans le même composant React.
 
-Le composant étant une simple fonction Javascript, il est possible de l'exporter et de l'importer dans un autre fichier. Cela permet de créer des composants React dans des fichiers séparés, qui peuvent être réutilisés dans d'autres composants React. C'est pas exemple le cas du composant `<App />` qui est défini dans le fichier App.js et qui est utilisé dans le fichier index.js.
+Le composant étant une simple fonction Javascript, il est possible de l'exporter et de l'importer dans un autre fichier. Cela permet de créer des composants React dans des fichiers séparés, qui peuvent être réutilisés dans d'autres composants React. C'est par exemple le cas du composant `<App />` qui est défini dans le fichier App.js et qui est utilisé dans le fichier index.js.
 
 Cela permet de rendre le code plus lisible et de faciliter la maintenance du code. 
 
